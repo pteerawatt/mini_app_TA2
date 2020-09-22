@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import axios from 'axios';
-import data from './dummy_data.js';
+// import data from './dummy_data.js';
 import Balance from './components/Balance.jsx';
 import Search from './components/Search.jsx';
 
@@ -15,7 +15,7 @@ class App extends React.Component {
       name: '',
       id: '',
       balance: 0,
-      data: []
+      data: [],
     }
     this.handleNameInput = this.handleNameInput.bind(this)
     this.handleNameSubmit = this.handleNameSubmit.bind(this)
@@ -34,7 +34,12 @@ class App extends React.Component {
 
   handleNameSubmit (e) {
     e.preventDefault()
+    let tempArr = [];
     for (let i = 0; i < this.state.data.length; i++) {
+      if (this.state.data[i].name !== this.state.name) {
+        tempArr.push(this.state.data[i]);
+      }
+
       if (this.state.data[i].name === this.state.name) {
         this.setState({
           login: true,
@@ -43,6 +48,7 @@ class App extends React.Component {
         });
       }
     }
+    this.setState({ data: tempArr });
   }
 
   render () {
@@ -51,7 +57,7 @@ class App extends React.Component {
     if (!this.state.login) {
       mainDisplay = (<Search handleNameSubmit={this.handleNameSubmit} handleNameInput={this.handleNameInput}/>);
     } else {
-      mainDisplay = (<Balance name={this.state.name} balance={this.state.balance}/>);
+      mainDisplay = (<Balance name={this.state.name} balance={this.state.balance} data={this.state.data} />);
     }
 
     return (
