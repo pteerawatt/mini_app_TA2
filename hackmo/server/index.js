@@ -7,14 +7,17 @@ var app = express();
 app.use( bodyParser.json() );
 
 // UNCOMMENT FOR REACT
-// app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(express.static(__dirname + '/../react-client/dist'));
 
 // UNCOMMENT FOR ANGULAR
 // app.use(express.static(__dirname + '/../angular-client'));
 // app.use(express.static(__dirname + '/../node_modules'));
 
 app.get('/api/users', function (req, res) {
-
+  db.getAllUsers((err, data) => {
+    if (err) res.send(err);
+    else res.send(data);
+  });
 });
 
 app.listen(3000, function() {

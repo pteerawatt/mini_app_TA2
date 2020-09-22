@@ -1,6 +1,6 @@
 module.exports = {
   host: 'localhost',
   user: 'root',
-  password: '',
+  password: 'b2024520245',
   database: 'hackmo'
 };
