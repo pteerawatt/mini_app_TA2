@@ -6,14 +6,31 @@ class User extends React.Component {
     this.state = {
       clicked: false,
     }
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick () {
+    this.setState({ clicked: true });
   }
 
   render() {
-    return (
-    <li>
+    let user = (
+      <li onClick={this.handleClick}>
       {this.props.user.name}
-    </li>
+      </li>
     )
+    if (this.state.clicked) {
+      user = (
+        <li>
+        {this.props.user.name}
+          <form>
+            <input></input>
+            <button>transfer</button>
+          </form>
+        </li>
+      )
+    }
+    return user;
   }
 }
 
